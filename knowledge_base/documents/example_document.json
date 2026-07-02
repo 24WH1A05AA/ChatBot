@@ -1,0 +1,28 @@
+{
+  "url": "https://example-college.edu/admissions/requirements.pdf",
+  "filename": "requirements.pdf",
+  "file_type": "pdf",
+  "title": "Admission Requirements",
+  "source_page": "https://example-college.edu/admissions",
+  "markdown": "# requirements.pdf\n\n## Document Information\n\n- **Type:** PDF\n- **Size:** 245.3 KB\n- **URL:** [https://example-college.edu/admissions/requirements.pdf](https://example-college.edu/admissions/requirements.pdf)\n- **Source Page:** [https://example-college.edu/admissions](https://example-college.edu/admissions)\n\n## Document Metadata\n\n- **Title:** Admission Requirements\n- **Author:** Admissions Office\n- **Created:** 2024-01-15T10:00:00\n- **Modified:** 2024-06-25T14:30:00\n- **Pages:** 5\n\n## Content\n\n--- Page 1 ---\nADMISSION REQUIREMENTS FOR EXAMPLE COLLEGE\n\nWelcome to our institution. This document outlines the requirements for admission to Example College.\n\nUNDERGRADUATE REQUIREMENTS:\n\n1. High school diploma or equivalent (GED)\n2. Minimum GPA of 3.0\n3. SAT score of 1200 or higher (or ACT 26+)\n4. Three letters of recommendation\n5. Personal statement (250-500 words)\n6. Official transcripts\n\nAPPLICATION DEADLINES:\n\n- Early Action: November 15\n- Regular Decision: January 15\n- Late Decision: May 1\n\n--- Page 2 ---\nINTERNATIONAL STUDENTS:\n\nInternational students must also provide:\n\n1. TOEFL scores (minimum 80)\n2. Financial documentation\n3. I-20 certification\n4. Passport copy\n\nOFFICER REQUIREMENTS:\n\nAll students must meet the following:\n- Criminal background check\n- Health examination\n- Immunization records\n\n--- Page 3 ---\nSPECIAL PROGRAMS:\n\nBiology Program:\n- Additional laboratory experience required\n- Biology SAT subject test (optional but recommended)\n\nEngineering Program:\n- Physics and Chemistry courses required\n- Math SAT subject test (optional but recommended)\n- Portfolio of technical work\n\n--- Page 4 ---\nFINANCIAL AID:\n\nEligible students can apply for:\n\n- Federal Pell Grants\n- Federal Stafford Loans\n- College Merit Scholarships\n- Need-based Financial Aid\n\nApplication Deadline: March 15\n\n--- Page 5 ---\nCONTACT INFORMATION:\n\nAdmissions Office\nExample College\n123 University Ave\nCity, State 12345\n\nPhone: (555) 123-4567\nEmail: admissions@example.edu\nWebsite: www.example.edu/admissions\n\nOffice Hours:\nMonday-Friday: 9:00 AM - 5:00 PM\nSaturday: 10:00 AM - 2:00 PM",
+  "metadata": {
+    "filename": "requirements.pdf",
+    "file_type": "pdf",
+    "file_size": 251161,
+    "modified_time": 1687708800,
+    "title": "Admission Requirements",
+    "author": "Admissions Office",
+    "pages": 5
+  },
+  "file_info": {
+    "url": "https://example-college.edu/admissions/requirements.pdf",
+    "filename": "requirements.pdf",
+    "local_path": "knowledge_base/downloads/pdf/requirements.pdf",
+    "file_type": "pdf",
+    "file_size": 251161,
+    "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_page": "https://example-college.edu/admissions",
+    "downloaded_at": "2024-07-02T19:42:07.962+05:30"
+  },
+  "converted_at": "2024-07-02T19:42:10.123+05:30"
+}
