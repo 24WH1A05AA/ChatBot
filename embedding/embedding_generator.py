@@ -15,6 +15,17 @@ from collections import defaultdict
 import openai
 from embedding.embedding_models import EmbeddingVector, EmbeddingBatch
 from core.logger import get_logger
+from core.optimization import (
+    get_optimization_engine,
+    ParallelExecutor,
+    BatchProcessor,
+    BatchConfig,
+    RetryPolicy,
+    cached,
+    retry,
+    timed,
+    Compression,
+)
 
 logger = get_logger(__name__)
 

@@ -11,14 +11,25 @@ import json
 from datetime import datetime
 from enum import Enum
 
-import openai
-
 from retriever.retrieval_pipeline import RetrievalPipeline, RetrievalResult
 from prompts.system_prompts import SystemPrompts, ConversationManager
 from prompts.prompt_orchestrator import PromptOrchestrator, ResponseHandler, ResponseType
 from vectorstore.vectorstore import VectorStore
 from security.security import SecurityManager
+from llm import get_llm_provider, LLMProvider
+from config import get_settings
 from core.logger import get_logger
+from core.optimization import (
+    get_optimization_engine,
+    StructuredLogger,
+    cached,
+    retry,
+    timed,
+    log_correlation_id,
+    BatchProcessor,
+    BatchConfig,
+    Compression,
+)
 
 logger = get_logger(__name__)
 
@@ -107,7 +118,7 @@ class Chatbot:
     def __init__(
         self,
         vectorstore: VectorStore,
-        llm_model: str = "gpt-4o-mini",
+        llm_provider: Optional[LLMProvider] = None,
         max_conversation_history: int = 20,
         retrieval_k: int = 5,
         temperature: float = 0.0,
@@ -117,13 +128,14 @@ class Chatbot:
         
         Args:
             vectorstore: Vector store instance
-            llm_model: LLM model to use
+            llm_provider: LLM provider instance (uses default if None)
             max_conversation_history: Max conversation turns
             retrieval_k: Number of retrieved chunks
             temperature: LLM temperature (0.0 = deterministic)
         """
         self.vectorstore = vectorstore
-        self.llm_model = llm_model
+        self.llm_provider = llm_provider or get_llm_provider()
+        self.settings = get_settings()
         self.retrieval_k = retrieval_k
         self.temperature = temperature
         
@@ -138,7 +150,8 @@ class Chatbot:
         self.conversation_history: List[ChatMessage] = []
         self.metrics = ChatbotMetrics()
         
-        logger.info(f"Initialized Chatbot with {llm_model}")
+        provider_name = self.settings.LLM_PROVIDER
+        logger.info(f"Initialized Chatbot with {provider_name} provider")
         logger.info("Security validation enabled")
 
     def _is_greeting(self, query: str) -> bool:
@@ -394,7 +407,7 @@ class Chatbot:
         user_message: str,
     ) -> Optional[str]:
         """
-        Call LLM with messages.
+        Call LLM with messages using configured provider.
         
         Args:
             system_prompt: System prompt
@@ -409,20 +422,17 @@ class Chatbot:
                 {"role": "user", "content": user_message},
             ]
             
-            response = openai.ChatCompletion.create(
-                model=self.llm_model,
+            # Use LLM provider (OpenRouter with fallback or OpenAI)
+            response = await self.llm_provider.generate(
                 messages=messages,
                 temperature=self.temperature,
                 max_tokens=2000,
             )
             
-            return response.choices[0].message.content
+            return response
         
-        except openai.error.RateLimitError:
-            logger.warning("Rate limited by OpenAI")
-            return None
         except Exception as e:
-            logger.error(f"Error calling LLM: {e}")
+            logger.error(f"Error calling LLM: {e}", exc_info=True)
             return None
 
     def _estimate_tokens(self, user_message: str, llm_response: str) -> int:

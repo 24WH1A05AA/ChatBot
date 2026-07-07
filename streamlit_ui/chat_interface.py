@@ -3,10 +3,15 @@ Streamlit chat interface for the college FAQ chatbot.
 
 Displays chat, sources, metrics, and conversation history.
 """
+import sys
+from pathlib import Path
+
+# Add project root to Python path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 import streamlit as st
 import asyncio
-from pathlib import Path
 from datetime import datetime
 
 from chatbot.chatbot import Chatbot

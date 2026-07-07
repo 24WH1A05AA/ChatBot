@@ -233,3 +233,21 @@ class TimeoutError(AppException):
             details=details,
             cause=cause,
         )
+
+
+class LLMError(AppException):
+    """Raised when LLM provider operations fail."""
+
+    def __init__(
+        self,
+        message: str,
+        details: Optional[dict[str, Any]] = None,
+        cause: Optional[Exception] = None,
+    ) -> None:
+        """Initialize LLMError."""
+        super().__init__(
+            message=message,
+            error_code="LLM_ERROR",
+            details=details,
+            cause=cause,
+        )

@@ -3,10 +3,15 @@ Professional Streamlit dashboard for the college FAQ chatbot.
 
 Comprehensive interface with dark mode, metrics, knowledge base stats, and advanced settings.
 """
+import sys
+from pathlib import Path
+
+# Add project root to Python path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 import streamlit as st
 import asyncio
-from pathlib import Path
 from datetime import datetime
 import json
 
@@ -218,7 +223,6 @@ def initialize_session_state():
         
         st.session_state.chatbot = Chatbot(
             vectorstore=vectorstore,
-            llm_model="gpt-4o-mini",
             max_conversation_history=20,
             retrieval_k=5,
             temperature=0.0,
@@ -486,7 +490,10 @@ def display_chat_interface():
             
             # Process query
             try:
-                section_filter, dept_filter = display_retriever_settings()
+                _section = st.session_state.get("section_select", "All")
+                _dept = st.session_state.get("dept_select", "All")
+                section_filter = None if _section == "All" else _section
+                dept_filter = None if _dept == "All" else _dept
                 
                 loop = asyncio.new_event_loop()
                 response = loop.run_until_complete(

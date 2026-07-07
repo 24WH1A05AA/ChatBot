@@ -21,6 +21,21 @@ from crawler.sitemap import SitemapParser
 from crawler.parser import HTMLParser
 from crawler.cleaner import ContentCleaner
 from crawler.metadata import MetadataExtractor
+from core.optimization import (
+    get_optimization_engine,
+    ParallelExecutor,
+    RetryQueue,
+    RetryPolicy,
+    Cache,
+    CacheStrategy,
+    HealthMonitor,
+    HealthCheck,
+    HealthStatus,
+    Compression,
+    cached,
+    retry,
+    timed,
+)
 
 logger = get_logger(__name__)
 

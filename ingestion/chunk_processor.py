@@ -9,7 +9,7 @@ import uuid
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from ingestion.chunk_models import DocumentChunk
 from core.logger import get_logger
 

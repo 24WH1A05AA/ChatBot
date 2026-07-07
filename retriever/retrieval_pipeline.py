@@ -13,6 +13,19 @@ from retriever.retriever_advanced import AdvancedRetriever, SearchResult, Retrie
 from retriever.query_encoder import QueryEncoder
 from vectorstore.vectorstore import VectorStore
 from core.logger import get_logger
+from core.optimization import (
+    get_optimization_engine,
+    Cache,
+    CacheStrategy,
+    BatchProcessor,
+    BatchConfig,
+    ParallelExecutor,
+    cached,
+    retry,
+    timed,
+    Compression,
+    StructuredLogger,
+)
 
 logger = get_logger(__name__)
 

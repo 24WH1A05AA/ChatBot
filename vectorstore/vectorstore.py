@@ -12,7 +12,6 @@ from typing import List, Dict, Any, Optional, Tuple, Set
 from datetime import datetime
 
 import chromadb
-from chromadb.config import Settings as ChromaSettings
 
 from core.logger import get_logger
 
@@ -40,14 +39,10 @@ class VectorStore:
         self.persist_dir = Path(persist_dir)
         self.persist_dir.mkdir(parents=True, exist_ok=True)
         
-        # Initialize ChromaDB client with persistence
-        settings = ChromaSettings(
-            chroma_db_impl="duckdb+parquet",
-            persist_directory=str(self.persist_dir),
-            anonymized_telemetry=False,
+        # Initialize ChromaDB client with new PersistentClient API
+        self.client = chromadb.PersistentClient(
+            path=str(self.persist_dir),
         )
-        
-        self.client = chromadb.Client(settings)
         self.collection = None
         self._load_or_create_collection()
         
@@ -305,12 +300,14 @@ class VectorStore:
             return False
 
     def persist(self) -> None:
-        """Persist the collection to disk."""
-        try:
-            self.client.persist()
-            logger.info("Persisted collection to disk")
-        except Exception as e:
-            logger.error(f"Error persisting: {e}")
+        """
+        Persist the collection to disk.
+        
+        Note: With PersistentClient, data is automatically persisted.
+        This method is kept for backward compatibility but does nothing.
+        """
+        logger.debug("Persistence is automatic with PersistentClient")
+        # No-op: PersistentClient handles persistence automatically
 
     def get_statistics(self) -> Dict[str, Any]:
         """Get collection statistics."""
